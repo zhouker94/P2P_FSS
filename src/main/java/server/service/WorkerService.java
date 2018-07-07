@@ -27,7 +27,6 @@ public class WorkerService {
 
 	private WorkerService() throws IOException {
 		this.serverSocket = ServerSocketFactory.getDefault().createServerSocket(Server.port);
-		startService();
 	}
 
 	public static WorkerService getInstance() throws IOException {

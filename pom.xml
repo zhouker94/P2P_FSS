@@ -4,6 +4,13 @@
 	<groupId>io.ezshare</groupId>
 	<artifactId>ezshare</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<encoding>UTF-8</encoding>
+		<java.version>1.8</java.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
@@ -44,7 +51,6 @@
 					<compilerVersion>1.5</compilerVersion>
 				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
 </project>
