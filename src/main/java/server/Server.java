@@ -19,34 +19,10 @@ import server.util.*;
 
 public class Server {
 
-	// Define the port number, '33254' by default
-	public static int port = 33254;
-
-	private static ServerSocket server_socket;
-
-	// Hash map of resources
-	private static HashMap<ResourceKey, Resource> resource_map = new HashMap<ResourceKey, Resource>();
-	// Max connections
-	public static int numConnections = 100;
-	// A list of Server Records
-	private static ArrayList<HostInfo> host_list = new ArrayList<HostInfo>();
-	// store those clients' addresses who just used the server
-	public static ArrayList<InetAddress> client_list = new ArrayList<InetAddress>();
-	// Server's secret
-	private static String secret = "";
-	// advertised host name
-	private static String advertisedHostName = "";
-	// connection interval limit
-	public static long connectionIntervalLimit = 1;
-	// exchange interval
-	private static long exchangeInterval = 10 * 60;
-
-	private static HostInfo local_host;
-	// log4j logger
-	private static Logger logger = Logger.getLogger(Server.class);
-
 	private static Boolean start(String[] args) throws Exception {
-
+		// log4j logger
+		Logger logger = Logger.getLogger(Server.class);
+		
 		local_host = new HostInfo(InetAddress.getLocalHost().getHostAddress(), port);
 
 		logger.info("[INFO] - Starting the EZShare Server");
