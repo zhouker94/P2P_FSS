@@ -18,6 +18,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import server.Server;
+import server.ServerConfig;
 import server.util.ServerUtils;
 
 public class WorkerService {
@@ -26,7 +27,7 @@ public class WorkerService {
 	private Logger logger = Logger.getLogger(Server.class);
 
 	private WorkerService() throws IOException {
-		this.serverSocket = ServerSocketFactory.getDefault().createServerSocket(Server.port);
+		this.serverSocket = ServerSocketFactory.getDefault().createServerSocket(ServerConfig.port);
 	}
 
 	public static WorkerService getInstance() throws IOException {
@@ -37,7 +38,7 @@ public class WorkerService {
 	}
 
 	public void startService() {
-		ExecutorService eService = Executors.newFixedThreadPool(Server.numConnections);
+		ExecutorService eService = Executors.newFixedThreadPool(ServerConfig.maxConnections);
 		new Thread() {
 			@Override
 			public void run() {
@@ -70,12 +71,12 @@ public class WorkerService {
 			InetAddress clientIpAddress = socket.getInetAddress();
 			try {
 				// if the client just have connected server, close it
-				if (Server.client_list.contains(clientIpAddress)) {
+				if (ServerConfig.client_list.contains(clientIpAddress)) {
 					// close the socket
 					socket.close();
 				}
 				logger.info("[INFO] - new connection from " + socket.getInetAddress() + ":" + socket.getPort());
-				ServerUtils.addClientAddress(socket, Server.client_list);
+				ServerUtils.addClientAddress(socket, ServerConfig.client_list);
 				
 				// Input stream
 				DataInputStream input = new DataInputStream(socket.getInputStream());
@@ -99,11 +100,11 @@ public class WorkerService {
 				e.printStackTrace();
 			}finally {
 				try {
-					Thread.sleep(Server.connectionIntervalLimit * 1000);
+					Thread.sleep(ServerConfig.connectionIntervalLimit * 1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				ServerUtils.removeClientAddress(socket, Server.client_list);
+				ServerUtils.removeClientAddress(socket, ServerConfig.client_list);
 			}
 		}
 	}

@@ -7,6 +7,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 import org.json.simple.JSONArray;
@@ -17,14 +18,14 @@ import server.HostInfo;
 
 public class ServerUtils {
 
-	public static synchronized void printHostList(ArrayList<HostInfo> host_list) {
+	public static void printHostList(List<HostInfo> host_list) {
 		System.out.println("----------------------host----------------------------");
 		for (HostInfo h : host_list) {
 			System.out.println(h.toString());
 		}
 	}
 
-	public static HostInfo getRandomHost(ArrayList<HostInfo> host_list) {
+	public static HostInfo getRandomHost(List<HostInfo> host_list) {
 
 		int size = host_list.size();
 		if (size <= 0) {
@@ -40,16 +41,16 @@ public class ServerUtils {
 
 	public static void printHelpInfo() {
 		System.out.println("usage:Server [-advertisedhostname <arg>][-debug][-connectionintervallimit <arg>]");
-		System.out.println("      [-exchangeinterval <arg>][-port <arg>][-secret <arg>]");
+		System.out.println("[-exchangeinterval <arg>][-port <arg>][-secret <arg>]");
 		System.out.println("Server for Unimelb COMP90015");
 		System.out.println();
-		System.out.println("-advertisedhostname <arg>		advertised hostname");
-		System.out.println("-connectionintervallimit <arg> 	connection interval limit in seconds");
-		System.out.println("-exchangeinterval <arg> 		exchange interval in seconds");
-		System.out.println("-port <arg> 					server port, an integer");
-		System.out.println("-secret <arg>					secret");
-		System.out.println("-debug							print debug information");
-		System.out.println("-sport <arg>					secure port number");
+		System.out.println("-advertisedhostname <arg> advertised hostname");
+		System.out.println("-connectionintervallimit <arg> connection interval limit in seconds");
+		System.out.println("-exchangeinterval <arg> exchange interval in seconds");
+		System.out.println("-port <arg> server port, an integer");
+		System.out.println("-secret <arg> secret");
+		System.out.println("-debug print debug information");
+		System.out.println("-sport <arg> secure port number");
 	}
 
 	/**
@@ -111,7 +112,7 @@ public class ServerUtils {
 	 * @param host_list
 	 * @return
 	 */
-	public static synchronized void removeHost(HostInfo selectedHost, ArrayList<HostInfo> host_list) {
+	public static void removeHost(HostInfo selectedHost, List<HostInfo> host_list) {
 
 		if (host_list.contains(selectedHost)) {
 			host_list.remove(selectedHost);
@@ -123,7 +124,7 @@ public class ServerUtils {
 	 * @param clientAddresses
 	 * @return
 	 */
-	public static synchronized void addClientAddress(Socket socket,
+	public static void addClientAddress(Socket socket,
 			ArrayList<InetAddress> client_list) {
 
 		client_list.add(socket.getInetAddress());
@@ -134,7 +135,7 @@ public class ServerUtils {
 	 * @param client_list
 	 * @return
 	 */
-	public static synchronized void removeClientAddress(Socket socket,
+	public static void removeClientAddress(Socket socket,
 			ArrayList<InetAddress> client_list) {
 		
 		InetAddress c_address = socket.getInetAddress();
@@ -149,7 +150,7 @@ public class ServerUtils {
 	 * @param host_list
 	 */
 	@SuppressWarnings("unchecked")
-	public static void sendHostlist(long interval, HostInfo local_host, ArrayList<HostInfo> host_list) {
+	public static void sendHostlist(long interval, HostInfo local_host, List<HostInfo> host_list) {
 
 		HostInfo selectedHost = null;
 		JSONObject exchangeCommand = new JSONObject();
