@@ -5,4 +5,4 @@
  * @author hanweizhu
  *
  */
-package resource;
+package server.resource;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package resource;
+package server.resource;
 
 /**
  * @author OwenZhu

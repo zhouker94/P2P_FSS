@@ -3,24 +3,10 @@
  */
 package server;
 
-import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerFactory;
-
-import resource.Resource;
-import resource.ResourceKey;
-import server.Server.State;
-import server.util.ServerUtils;
 
 /**
  * @author OwenZhu

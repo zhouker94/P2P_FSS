@@ -2,17 +2,17 @@ package server;
 
 import org.json.simple.JSONObject;
 
-public class HostInfo {
-	
-	String hostname;
-	int port;
-	
+public class HostEntity {
+
+	private String hostname;
+	private int port;
+
 	/**
 	 * @param hostname
 	 * @param port
 	 * @param secret
 	 */
-	public HostInfo(String hostname, int port) {
+	public HostEntity(String hostname, int port) {
 		setPort(port);
 		setHostname(hostname);
 	}
@@ -42,7 +42,6 @@ public class HostInfo {
 		this.hostname = hostname;
 	}
 
-
 	/**
 	 * @return host information in JSON format
 	 */
@@ -58,7 +57,7 @@ public class HostInfo {
 	 * @param host
 	 * @return
 	 */
-	public boolean equals(HostInfo host) {
+	public boolean equals(HostEntity host) {
 		if (this.hostname.equals(host.getHostname()) && (this.getPort() == host.getPort())) {
 			return true;
 		} else {
@@ -67,7 +66,9 @@ public class HostInfo {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

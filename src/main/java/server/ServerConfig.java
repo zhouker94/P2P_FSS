@@ -14,8 +14,8 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-import resource.Resource;
-import resource.ResourceKey;
+import server.resource.Resource;
+import server.resource.ResourceKey;
 import server.util.ServerUtils;
 
 public class ServerConfig {
@@ -24,7 +24,6 @@ public class ServerConfig {
 
 	// defaults to 33254 if not set explicitly
 	protected int port = 33254;
-	protected Map<ResourceKey, Resource> resource_map;
 	protected int maxConnections = 100;
 
 	// Server's secret
@@ -36,9 +35,9 @@ public class ServerConfig {
 	// exchange interval
 	protected long exchangeInterval = 10 * 60;
 
-	protected HostInfo local_host;
+	protected HostEntity local_host;
 	// A list of Server Records
-	protected List<HostInfo> host_list;
+	protected List<HostEntity> host_list;
 	// store those clients' addresses who just used the server
 	protected List<InetAddress> client_list;
 
@@ -93,8 +92,8 @@ public class ServerConfig {
 			this.secret = ServerUtils.generateSecret();
 		}
 
-		this.local_host = new HostInfo(InetAddress.getLocalHost().getHostAddress(), this.port);
-		this.host_list = Collections.synchronizedList(new ArrayList<HostInfo>());
+		this.local_host = new HostEntity(InetAddress.getLocalHost().getHostAddress(), this.port);
+		this.host_list = Collections.synchronizedList(new ArrayList<HostEntity>());
 		this.client_list = Collections.synchronizedList(new ArrayList<InetAddress>());
 
 	}

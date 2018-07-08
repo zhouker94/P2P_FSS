@@ -14,25 +14,25 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import server.HostInfo;
+import server.HostEntity;
 
 public class ServerUtils {
 
-	public static void printHostList(List<HostInfo> host_list) {
+	public static void printHostList(List<HostEntity> host_list) {
 		System.out.println("----------------------host----------------------------");
-		for (HostInfo h : host_list) {
+		for (HostEntity h : host_list) {
 			System.out.println(h.toString());
 		}
 	}
 
-	public static HostInfo getRandomHost(List<HostInfo> host_list) {
+	public static HostEntity getRandomHost(List<HostEntity> host_list) {
 
 		int size = host_list.size();
 		if (size <= 0) {
 			return null;
 		}
 
-		HostInfo host = null;
+		HostEntity host = null;
 		Random random = new Random();
 		host = host_list.get(random.nextInt(size));
 
@@ -112,7 +112,7 @@ public class ServerUtils {
 	 * @param host_list
 	 * @return
 	 */
-	public static void removeHost(HostInfo selectedHost, List<HostInfo> host_list) {
+	public static void removeHost(HostEntity selectedHost, List<HostEntity> host_list) {
 
 		if (host_list.contains(selectedHost)) {
 			host_list.remove(selectedHost);
@@ -150,9 +150,9 @@ public class ServerUtils {
 	 * @param host_list
 	 */
 	@SuppressWarnings("unchecked")
-	public static void sendHostlist(long interval, HostInfo local_host, List<HostInfo> host_list) {
+	public static void sendHostlist(long interval, HostEntity local_host, List<HostEntity> host_list) {
 
-		HostInfo selectedHost = null;
+		HostEntity selectedHost = null;
 		JSONObject exchangeCommand = new JSONObject();
 
 		while (true) {
@@ -180,7 +180,7 @@ public class ServerUtils {
 					} else if (localHostFlag) {
 						removeHost(selectedHost, host_list);
 					}
-					for (HostInfo ht : host_list) {
+					for (HostEntity ht : host_list) {
 						serverList.add(ht.toJson());
 					}
 					exchangeCommand.put("command", "EXCHANGE");

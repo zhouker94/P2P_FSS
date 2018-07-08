@@ -1,4 +1,4 @@
-package resource;
+package server.resource;
 
 import java.net.URI;
 import java.util.Iterator;
@@ -7,19 +7,19 @@ import java.util.LinkedList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import server.HostInfo;
+import server.HostEntity;
 
 public class Resource {
 	
 	private String name;
 	private String description;
 	private LinkedList<String> tags;
-	private HostInfo ezserver;
+	private HostEntity ezserver;
 
 	public ResourceKey rKey;
 
 	public Resource(String name, String description, LinkedList<String> tags, URI uri, String channel, String owner,
-			HostInfo ezserver) {
+			HostEntity ezserver) {
 		this.name = name;
 		this.description = description;
 		this.tags = tags;

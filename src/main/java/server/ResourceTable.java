@@ -4,8 +4,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import resource.Resource;
-import resource.ResourceKey;
+import server.resource.Resource;
+import server.resource.ResourceKey;
 
 public class ResourceTable {
 	

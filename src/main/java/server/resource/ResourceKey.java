@@ -1,4 +1,4 @@
-package resource;
+package server.resource;
 
 import java.net.URI;
 

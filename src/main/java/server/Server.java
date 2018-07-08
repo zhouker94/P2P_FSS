@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 
 import org.apache.commons.cli.CommandLine;
@@ -12,14 +13,15 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.log4j.Logger;
 
-import resource.Resource;
-import resource.ResourceKey;
+import server.resource.Resource;
+import server.resource.ResourceKey;
 import server.service.WorkerService;
 import server.util.*;
 
 public class Server {
 	
-	protected ServerBean serverBean;
+	protected final Date startTime;
+	protected final String name;
 	
     protected static final Logger LOG;
     protected volatile State state = State.INITIAL;
@@ -37,8 +39,18 @@ public class Server {
 
 	public Server(ServerConfig config) {
 		LOG.info("[INFO] - started");
+		startTime = new Date();
+		name = "StandaloneServer_port" + config.port;
 	}
 
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public String getName() {
+		return name;
+	}
+	
 	public static void run() {
 
 		// Start Worker Service and wait for connection.
