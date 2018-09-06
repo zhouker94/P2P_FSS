@@ -15,6 +15,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import server.HostEntity;
+import server.command.AbstractCommand;
+import server.command.PublishCommand;
 
 public class ServerUtils {
 
@@ -201,17 +203,30 @@ public class ServerUtils {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static LinkedList<JSONObject> parseCommand(JSONObject clientCommand, DataOutputStream output,
 			DataInputStream input) {
 		LinkedList<JSONObject> results = new LinkedList<JSONObject>();
 		JSONObject result = new JSONObject();
-		/* TODO:
+
 		if (clientCommand.containsKey("command")) {
+			AbstractCommand command;
 			switch (clientCommand.get("command").toString()) {
 			case "PUBLISH":
-				result = publish(clientCommand);
+				command = new PublishCommand();
+				result = command.commandRun(clientCommand);
 				results.add(result);
 				break;
+			default:
+				result.put("response", "error");
+				results.add(result);
+				break;
+			}
+		} else {
+			result.put("response", "error");
+			results.add(result);
+		}
+		/*
 			case "REMOVE":
 				result = remove(clientCommand);
 				results.add(result);
@@ -234,15 +249,7 @@ public class ServerUtils {
 				result = subscribe(clientCommand, output, input);
 				results.add(result);
 				break;
-			default:
-				result.put("response", "error");
-				results.add(result);
-				break;
 			}
-		} else {
-			result.put("response", "error");
-			results.add(result);
-		}
 		*/
 		return results;
 	}
