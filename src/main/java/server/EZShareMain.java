@@ -45,6 +45,8 @@ public class EZShareMain {
 	}
 
 	public void runFromConfig(ServerConfig config) {
+		LOG.info("Starting server");
 		final Server ezServer = new Server(config);
+		ezServer.start();
 	}
 }

@@ -26,8 +26,8 @@ public class WorkerService {
 	private ServerSocket serverSocket;
 	private Logger logger = Logger.getLogger(Server.class);
 
-	private WorkerService() throws IOException {
-		this.serverSocket = ServerSocketFactory.getDefault().createServerSocket(ServerConfig.port);
+	private WorkerService(int port) throws IOException {
+		this.serverSocket = ServerSocketFactory.getDefault().createServerSocket(port);
 	}
 
 	public static WorkerService getInstance() throws IOException {
@@ -37,8 +37,8 @@ public class WorkerService {
 		return workerService;
 	}
 
-	public void startService() {
-		ExecutorService eService = Executors.newFixedThreadPool(ServerConfig.maxConnections);
+	public void startService(int maxConnections) {
+		ExecutorService eService = Executors.newFixedThreadPool(maxConnections);
 		new Thread() {
 			@Override
 			public void run() {
