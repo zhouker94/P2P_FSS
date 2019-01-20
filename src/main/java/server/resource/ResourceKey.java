@@ -37,20 +37,12 @@ public class ResourceKey {
 		this.uri = uri;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		String str = owner + channel + uri.toString();
 		return str.hashCode();
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object rhs) {
 

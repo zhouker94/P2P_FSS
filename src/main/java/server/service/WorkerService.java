@@ -17,95 +17,94 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import server.Server;
 import server.ServerConfig;
-import server.util.ServerUtils;
+import server.ServerUtils;
 
 public class WorkerService {
-	private static WorkerService workerService = null;
-	private ServerSocket serverSocket;
-	private Logger logger = Logger.getLogger(Server.class);
 
-	private WorkerService(int port) throws IOException {
-		this.serverSocket = ServerSocketFactory.getDefault().createServerSocket(port);
-	}
+    private static WorkerService workerService;
+    private ServerSocket serverSocket;
+    private Logger logger = Logger.getLogger(WorkerService.class);
 
-	public static WorkerService getInstance() throws IOException {
-		if (workerService == null) {
-			workerService = new WorkerService();
-		}
-		return workerService;
-	}
+    public static WorkerService getInstance() {
+        if (workerService == null) {
+            workerService = new WorkerService();
+        }
+        return workerService;
+    }
 
-	public void startService(int maxConnections) {
-		ExecutorService eService = Executors.newFixedThreadPool(maxConnections);
-		new Thread() {
-			@Override
-			public void run() {
-				try {
-					while (true) {
-						Socket socket = serverSocket.accept();
-						logger.info("[INFO] - new connection from " + socket.getInetAddress() + ":" + socket.getPort());
-						eService.execute(new RequestHandler(socket));
-					}
-				} catch (Exception e) {
-					// TODO: handle exception
-					e.printStackTrace();
-				}
-			}
-		}.start();
-	}
+    public void start(int port, int maxConnections) throws IOException {
+        this.serverSocket =
+                ServerSocketFactory.getDefault().createServerSocket(port);
 
-	class RequestHandler implements Runnable {
-		private JSONObject request;
-		LinkedList<JSONObject> response;
-		private Socket socket;
+        ExecutorService eService =
+                Executors.newFixedThreadPool(maxConnections);
 
-		public RequestHandler(Socket socket) throws IOException {
-			// TODO Auto-generated constructor stub
-			this.socket = socket;
-		}
+        System.out.println("Now waiting for connection from client...");
 
-		@Override
-		public void run() {
-			InetAddress clientIpAddress = socket.getInetAddress();
-			try {
-				// if the client just have connected server, close it
-				if (ServerConfig.client_list.contains(clientIpAddress)) {
-					// close the socket
-					socket.close();
-				}
-				logger.info("[INFO] - new connection from " + socket.getInetAddress() + ":" + socket.getPort());
-				ServerUtils.addClientAddress(socket, ServerConfig.client_list);
-				
-				// Input stream
-				DataInputStream input = new DataInputStream(socket.getInputStream());
-				// Output Stream
-				DataOutputStream output = new DataOutputStream(socket.getOutputStream());
-	
-				/** get client's command */
-				JSONParser parser = new JSONParser();
-				request = (JSONObject) parser.parse(input.readUTF());
-				logger.info("[INFO] - RECEIVED: " + request.toJSONString());
-	
-				LinkedList<JSONObject> response = ServerUtils.parseCommand(request, output, input);
-				
-				for (JSONObject result : response) {
-					output.writeUTF(result.toJSONString());
-					output.flush();
-					logger.info("[FINE] - SEND: " + result.toJSONString());
-				}
-				
-			}catch (IOException | ParseException e) {
-				e.printStackTrace();
-			}finally {
-				try {
-					Thread.sleep(ServerConfig.connectionIntervalLimit * 1000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				ServerUtils.removeClientAddress(socket, ServerConfig.client_list);
-			}
-		}
-	}
+        new Thread(() -> {
+            try {
+                while (true) {
+                    Socket socket = serverSocket.accept();
+                    logger.info("[INFO] - new connection from " + socket.getInetAddress() + ":" + socket.getPort());
+                    eService.execute(new RequestHandler(socket));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    class RequestHandler implements Runnable {
+        private JSONObject request;
+        LinkedList<JSONObject> response;
+        private Socket socket;
+
+        public RequestHandler(Socket socket) throws IOException {
+            // TODO Auto-generated constructor stub
+            this.socket = socket;
+        }
+
+        @Override
+        public void run() {
+            InetAddress clientIpAddress = socket.getInetAddress();
+            try {
+                // if the client just have connected server, close it
+                if (ServerConfig.client_list.contains(clientIpAddress)) {
+                    // close the socket
+                    socket.close();
+                }
+                logger.info("[INFO] - new connection from " + socket.getInetAddress() + ":" + socket.getPort());
+                ServerUtils.addClientAddress(socket, ServerConfig.client_list);
+
+                // Input stream
+                DataInputStream input = new DataInputStream(socket.getInputStream());
+                // Output Stream
+                DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+
+                /** get client's command */
+                JSONParser parser = new JSONParser();
+                request = (JSONObject) parser.parse(input.readUTF());
+                logger.info("[INFO] - RECEIVED: " + request.toJSONString());
+
+                LinkedList<JSONObject> response = ServerUtils.parseCommand(request, output, input);
+
+                for (JSONObject result : response) {
+                    output.writeUTF(result.toJSONString());
+                    output.flush();
+                    logger.info("[FINE] - SEND: " + result.toJSONString());
+                }
+
+            } catch (IOException | ParseException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    Thread.sleep(ServerConfig.connectionIntervalLimit * 1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                ServerUtils.removeClientAddress(socket, ServerConfig.client_list);
+            }
+        }
+    }
 }

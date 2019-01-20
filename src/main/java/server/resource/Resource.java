@@ -7,19 +7,19 @@ import java.util.LinkedList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import server.HostEntity;
+import server.hostlist.HostInfo;
 
 public class Resource {
 	
 	private String name;
 	private String description;
 	private LinkedList<String> tags;
-	private HostEntity ezserver;
+	private HostInfo ezserver;
 
 	public ResourceKey rKey;
 
 	public Resource(String name, String description, LinkedList<String> tags, URI uri, String channel, String owner,
-			HostEntity ezserver) {
+			HostInfo ezserver) {
 		this.name = name;
 		this.description = description;
 		this.tags = tags;

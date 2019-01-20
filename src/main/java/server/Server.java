@@ -6,40 +6,40 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import server.hostlist.HostInfo;
+import server.service.HeartbeatService;
 import server.service.WorkerService;
-import server.util.*;
+
+import server.ServerUtils.Status;
 
 public class Server {
 
+	public static volatile Status status;
+
 	protected final Date startTime;
+	protected final int port;
 	protected final String name;
 	protected final long exchangeInterval;
-	protected final HostEntity local_host;
-	protected List<HostEntity> host_list;
+	protected final HostInfo local_host;
+	protected List<HostInfo> host_list;
 	protected final int maxConnections;
 
-	protected static final Logger LOG;
-	protected volatile State state = State.INITIAL;
-	protected RequestProcessor processor;
+	private static final Logger LOG = Logger.getLogger(Server.class);
 
 	protected ResourceTable resourceTable;
 
-	static {
-		LOG = Logger.getLogger(Server.class);
-	}
-
-	protected enum State {
-		INITIAL, RUNNING, ERROR
-	}
-
-	public Server(ServerConfig config) {
+	Server(ServerConfig config) {
 		LOG.info("[INFO] - started");
-		startTime = new Date();
-		name = "StandaloneServer_port_" + config.port;
-		exchangeInterval = config.exchangeInterval;
-		local_host = config.local_host;
-		host_list = config.host_list;
-		maxConnections = config.maxConnections;
+		this.startTime = new Date();
+		this.port = config.port;
+		this.name = "StandaloneServer_port_" + this.port;
+		this.exchangeInterval = config.exchangeInterval;
+		this.local_host = config.local_host;
+		this.host_list = config.host_list;
+		this.maxConnections = config.maxConnections;
+
+		Server.status = Status.START;
+
 	}
 
 	public Date getStartTime() {
@@ -50,20 +50,25 @@ public class Server {
 		return name;
 	}
 
-	public void start() {
-		// Start Worker Service and wait for connection.
+	void start() {
+
+		// Start worker pool and wait for connection.
 		try {
-			System.out.println("Now waiting for connection from client...");
 			WorkerService workerService = WorkerService.getInstance();
-			workerService.startService(this.maxConnections);
+			workerService.start(this.port, this.maxConnections);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		// Start a new thread to exchange information
-		new Thread(() -> ServerUtils.sendHostlist(this.exchangeInterval * 1000, local_host, host_list))
-				.start();
+		// Start sending heartbeat
+		try {
+			HeartbeatService heartBeatService =
+					HeartbeatService.getInstance();
+			heartBeatService.start(this.exchangeInterval, this.maxConnections);
+		} catch () {
+
+		}
+		Server.status = Status.JOIN;
 	}
 
 }

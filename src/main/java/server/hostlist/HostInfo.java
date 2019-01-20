@@ -1,8 +1,8 @@
-package server;
+package server.hostlist;
 
 import org.json.simple.JSONObject;
 
-public class HostEntity {
+public class HostInfo {
 
 	private String hostname;
 	private int port;
@@ -12,21 +12,15 @@ public class HostEntity {
 	 * @param port
 	 * @param secret
 	 */
-	public HostEntity(String hostname, int port) {
+	HostInfo(String hostname, int port) {
 		setPort(port);
 		setHostname(hostname);
 	}
 
-	/**
-	 * @return
-	 */
 	public int getPort() {
 		return port;
 	}
 
-	/**
-	 * @param port
-	 */
 	public void setPort(int port) {
 		this.port = port;
 	}
@@ -35,9 +29,6 @@ public class HostEntity {
 		return hostname;
 	}
 
-	/**
-	 * @param hostname
-	 */
 	public void setHostname(String hostname) {
 		this.hostname = hostname;
 	}
@@ -57,7 +48,7 @@ public class HostEntity {
 	 * @param host
 	 * @return
 	 */
-	public boolean equals(HostEntity host) {
+	public boolean equals(HostInfo host) {
 		if (this.hostname.equals(host.getHostname()) && (this.getPort() == host.getPort())) {
 			return true;
 		} else {

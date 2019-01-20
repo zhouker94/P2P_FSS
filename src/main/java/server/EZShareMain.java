@@ -1,6 +1,3 @@
-/**
- * 
- */
 package server;
 
 import java.net.UnknownHostException;
@@ -8,45 +5,44 @@ import java.net.UnknownHostException;
 import org.apache.commons.cli.ParseException;
 import org.apache.log4j.Logger;
 
-/**
- * @author OwenZhu
- *
- */
+
 public class EZShareMain {
 
-	// log4j logger
-	private static final Logger LOG = Logger.getLogger(Server.class);
+    // log4j logger
+    private static final Logger LOG = Logger.getLogger(Server.class);
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		EZShareMain main = new EZShareMain();
-		try {
-			main.initializeAndRun(args);
-		} catch (ParseException e) {
-			LOG.error("Invalid arguments, exiting abnormally", e);
-			System.err.println("Invalid arguments, exiting abnormally");
-			System.exit(2);
-		} catch (UnknownHostException e) {
-			LOG.error("Unable to get local ip address, exiting abnormally", e);
-			System.err.println("Unable to get local ip address, exiting abnormally");
-			System.exit(2);
-		}
-	}
+    public static void main(String[] args) {
 
-	protected void initializeAndRun(String[] args) throws ParseException, UnknownHostException {
+        EZShareMain main = new EZShareMain();
 
-		ServerConfig config = new ServerConfig();
-		config.parse(args);
+        try {
+            main.initializeAndRun(args);
+        } catch (ParseException e) {
 
-		LOG.info("[INFO] - Initializing EZShare Server");
-		runFromConfig(config);
-	}
+            LOG.error("Invalid arguments, exiting abnormally", e);
+            System.err.println("Invalid arguments, exiting abnormally");
 
-	public void runFromConfig(ServerConfig config) {
-		LOG.info("Starting server");
-		final Server ezServer = new Server(config);
-		ezServer.start();
-	}
+            System.exit(2);
+        } catch (UnknownHostException e) {
+
+            LOG.error("Unable to get local ip address, exiting abnormally", e);
+            System.err.println("Unable to get local ip address, exiting abnormally");
+
+            System.exit(2);
+        }
+    }
+
+    private void initializeAndRun(String[] args)
+            throws ParseException, UnknownHostException {
+
+        LOG.info("[INFO] - Initializing EZShare Server");
+
+        ServerConfig config = new ServerConfig();
+        config.parse(args);
+
+        LOG.info("Starting server");
+        final Server ezServer = new Server(config);
+        ezServer.start();
+    }
+
 }

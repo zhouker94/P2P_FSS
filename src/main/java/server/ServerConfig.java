@@ -4,19 +4,13 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-
-import server.resource.Resource;
-import server.resource.ResourceKey;
-import server.util.ServerUtils;
+import server.hostlist.HostInfo;
 
 public class ServerConfig {
 
@@ -35,9 +29,7 @@ public class ServerConfig {
 	// exchange interval
 	protected long exchangeInterval = 10 * 60;
 
-	protected HostEntity local_host;
-	// A list of Server Records
-	protected List<HostEntity> host_list;
+	protected HostInfo local_host;
 	// store those clients' addresses who just used the server
 	protected List<InetAddress> client_list;
 
@@ -58,10 +50,7 @@ public class ServerConfig {
 		opt.addOption("secret", true, "secret");
 		opt.addOption("debug", "print debug information");
 
-		CommandLineParser parser = new DefaultParser();
-		CommandLine cmd = null;
-
-		cmd = parser.parse(opt, args);
+		CommandLine cmd = new DefaultParser().parse(opt, args);
 
 		if (cmd.hasOption("help")) {
 			ServerUtils.printHelpInfo();
@@ -92,8 +81,7 @@ public class ServerConfig {
 			this.secret = ServerUtils.generateSecret();
 		}
 
-		this.local_host = new HostEntity(InetAddress.getLocalHost().getHostAddress(), this.port);
-		this.host_list = Collections.synchronizedList(new ArrayList<HostEntity>());
+		this.local_host = new HostInfo(InetAddress.getLocalHost().getHostAddress(), this.port);
 		this.client_list = Collections.synchronizedList(new ArrayList<InetAddress>());
 
 	}
