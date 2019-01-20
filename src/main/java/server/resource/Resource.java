@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import server.hostlist.HostInfo;
+import server.HostInfo;
 
 public class Resource {
 	

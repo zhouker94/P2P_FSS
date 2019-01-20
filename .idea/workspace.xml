@@ -2,22 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="20167c0c-dfe4-4d20-8c4a-b71a58efc6f8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/server/config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/server/hostlist/HostList.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/server/service/HeartbeatService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.m2e.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/EZShareMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/EZShareMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/HostEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/hostlist/HostInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/server/ClientInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/server/HostInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/server/list/BaseList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/server/list/ClientList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/ServerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/ServerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/ServerUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/ServerUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/hostlist/HostInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/hostlist/HostList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/list/HostList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/resource/Resource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/resource/Resource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/resource/ResourceKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/resource/ResourceKey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/service/HeartbeatService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/service/HeartbeatService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/service/WorkerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/service/WorkerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/util/ServerUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/ServerUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/util/package-info.java" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,7 +25,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
+    <splitter split-orientation="horizontal" split-proportion="0.445629">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
@@ -39,72 +37,30 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/server/ServerConfig.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="600">
-                  <caret line="31" column="34" selection-start-line="31" selection-start-column="34" selection-end-line="31" selection-end-column="34" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/server/Server.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="820">
-                  <caret line="42" column="5" lean-forward="true" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="e#1058#1059#0" expanded="true" />
-                    <element signature="e#1081#1082#0" expanded="true" />
-                    <element signature="e#1109#1110#0" expanded="true" />
-                    <element signature="e#1127#1128#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/server/ServerUtils.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="120">
-                  <caret line="57" column="5" selection-start-line="57" selection-start-column="5" selection-end-line="57" selection-end-column="5" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/main/java/server/service/HeartbeatService.java">
+            <entry file="file://$PROJECT_DIR$/src/main/java/server/list/BaseList.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="360">
-                  <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+                <state>
+                  <caret column="20" selection-start-column="20" selection-end-column="20" />
                   <folding>
                     <element signature="imports" expanded="true" />
-                    <element signature="e#2834#2846#0" expanded="true" />
+                    <element signature="e#345#346#0" expanded="true" />
+                    <element signature="e#408#409#0" expanded="true" />
+                    <element signature="e#432#433#0" expanded="true" />
+                    <element signature="e#484#485#0" expanded="true" />
+                    <element signature="e#525#526#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/server/hostlist/HostList.java">
+            <entry file="file://$PROJECT_DIR$/src/main/java/server/service/WorkerService.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="298">
-                  <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+                <state relative-caret-position="160">
+                  <caret line="71" column="17" selection-start-line="71" selection-start-column="9" selection-end-line="71" selection-end-column="17" />
                   <folding>
                     <element signature="imports" expanded="true" />
-                    <element signature="e#118#119#0" expanded="true" />
-                    <element signature="e#156#157#0" expanded="true" />
-                    <element signature="e#191#192#0" expanded="true" />
-                    <element signature="e#245#246#0" expanded="true" />
-                    <element signature="e#617#618#0" expanded="true" />
-                    <element signature="e#657#658#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -146,32 +102,49 @@
       </split-first>
       <split-second>
         <leaf>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/main/java/server/hostlist/HostInfo.java">
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/server/ClientInfo.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="80">
-                  <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+                <state relative-caret-position="40">
+                  <caret line="2" column="25" lean-forward="true" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/server/list/ClientList.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="60">
+                  <caret line="3" column="25" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
                   <folding>
-                    <element signature="e#326#327#0" expanded="true" />
-                    <element signature="e#344#345#0" expanded="true" />
-                    <element signature="e#404#405#0" expanded="true" />
-                    <element signature="e#427#428#0" expanded="true" />
-                    <element signature="e#459#460#0" expanded="true" />
-                    <element signature="e#481#482#0" expanded="true" />
-                    <element signature="e#556#557#0" expanded="true" />
-                    <element signature="e#587#588#0" expanded="true" />
-                    <element signature="e#1185#1186#0" expanded="true" />
-                    <element signature="e#1220#1221#0" expanded="true" />
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#678#679#0" expanded="true" />
+                    <element signature="e#706#707#0" expanded="true" />
+                    <element signature="e#753#754#0" expanded="true" />
+                    <element signature="e#780#781#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/main/java/server/list/HostList.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="320">
+                  <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#378#379#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/server/service/WorkerService.java">
+            <entry file="file://$PROJECT_DIR$/src/main/java/server/service/HeartbeatService.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1120">
-                  <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
+                <state relative-caret-position="140">
+                  <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -186,9 +159,15 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>hostList</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -196,19 +175,26 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/main/java/server/config.json" />
         <option value="$PROJECT_DIR$/src/main/java/server/resource/ResourceKey.java" />
         <option value="$PROJECT_DIR$/src/main/java/server/EZShareMain.java" />
         <option value="$PROJECT_DIR$/src/main/java/server/service/MasterService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/server/service/WorkerService.java" />
         <option value="$PROJECT_DIR$/src/main/java/server/service/HeartBeatService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/server/Server.java" />
         <option value="$PROJECT_DIR$/src/main/java/server/ServerConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/server/HostEntity.java" />
         <option value="$PROJECT_DIR$/src/main/java/server/hostlist/HostList.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/main/java/server/ServerUtils.java" />
+        <option value="$PROJECT_DIR$/src/main/java/server/hostlist/HostInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/server/service/HeartbeatService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/server/Server.java" />
+        <option value="$PROJECT_DIR$/src/main/java/server/service/WorkerService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/server/clientlist/ClientList.java" />
+        <option value="$PROJECT_DIR$/src/main/java/server/list/List.java" />
+        <option value="$PROJECT_DIR$/src/main/java/server/list/BaseListInterface.java" />
+        <option value="$PROJECT_DIR$/src/main/java/server/list/ClientList.java" />
+        <option value="$PROJECT_DIR$/src/main/java/server/list/HostList.java" />
+        <option value="$PROJECT_DIR$/src/main/java/server/list/BaseList.java" />
       </list>
     </option>
   </component>
@@ -271,7 +257,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="hostlist" type="462c0819:PsiDirectoryNode" />
+              <item name="list" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ezshare" type="b2602c69:ProjectViewProjectNode" />
@@ -286,7 +272,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547952445416" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547986542221" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
@@ -395,13 +381,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="9" lean-forward="true" selection-start-column="9" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/server/ResourceTable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -450,24 +429,59 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/server/ServerConfig.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
-          <caret line="31" column="34" selection-start-line="31" selection-start-column="34" selection-end-line="31" selection-end-column="34" />
+          <caret line="30" column="34" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/server/service/WorkerService.java">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1120">
-          <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
+        <state relative-caret-position="20">
+          <caret line="1" column="8" lean-forward="true" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/server/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="51" column="18" selection-start-line="51" selection-start-column="18" selection-end-line="51" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1058#1059#0" expanded="true" />
+            <element signature="e#1081#1082#0" expanded="true" />
+            <element signature="e#1109#1110#0" expanded="true" />
+            <element signature="e#1127#1128#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/server/ServerUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="712">
+          <caret line="148" column="5" lean-forward="true" selection-start-line="148" selection-start-column="5" selection-end-line="148" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/server/hostlist/HostInfo.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/server/list/ClientList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="3" column="25" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#678#679#0" expanded="true" />
+            <element signature="e#706#707#0" expanded="true" />
+            <element signature="e#753#754#0" expanded="true" />
+            <element signature="e#780#781#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/server/HostInfo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
           <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
@@ -486,53 +500,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/server/hostlist/HostList.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/server/ClientInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#118#119#0" expanded="true" />
-            <element signature="e#156#157#0" expanded="true" />
-            <element signature="e#191#192#0" expanded="true" />
-            <element signature="e#245#246#0" expanded="true" />
-            <element signature="e#617#618#0" expanded="true" />
-            <element signature="e#657#658#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/server/ServerUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="57" column="5" selection-start-line="57" selection-start-column="5" selection-end-line="57" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/server/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="820">
-          <caret line="42" column="5" lean-forward="true" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1058#1059#0" expanded="true" />
-            <element signature="e#1081#1082#0" expanded="true" />
-            <element signature="e#1109#1110#0" expanded="true" />
-            <element signature="e#1127#1128#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="40">
+          <caret line="2" column="25" lean-forward="true" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/server/service/HeartbeatService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        <state relative-caret-position="140">
+          <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2834#2846#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/server/list/HostList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#378#379#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/server/service/WorkerService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="71" column="17" selection-start-line="71" selection-start-column="9" selection-end-line="71" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/server/list/BaseList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="20" selection-start-column="20" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#345#346#0" expanded="true" />
+            <element signature="e#408#409#0" expanded="true" />
+            <element signature="e#432#433#0" expanded="true" />
+            <element signature="e#484#485#0" expanded="true" />
+            <element signature="e#525#526#0" expanded="true" />
           </folding>
         </state>
       </provider>

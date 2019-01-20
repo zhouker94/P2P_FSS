@@ -10,7 +10,6 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import server.hostlist.HostInfo;
 
 public class ServerConfig {
 

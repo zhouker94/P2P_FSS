@@ -17,6 +17,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import server.Server;
 import server.ServerConfig;
 import server.ServerUtils;
 
@@ -25,6 +26,7 @@ public class WorkerService {
     private static WorkerService workerService;
     private ServerSocket serverSocket;
     private Logger logger = Logger.getLogger(WorkerService.class);
+    private Server server;
 
     public static WorkerService getInstance() {
         if (workerService == null) {
@@ -33,18 +35,19 @@ public class WorkerService {
         return workerService;
     }
 
-    public void start(int port, int maxConnections) throws IOException {
+    public void start(Server server) throws IOException {
+        this.server = server;
         this.serverSocket =
-                ServerSocketFactory.getDefault().createServerSocket(port);
+                ServerSocketFactory.getDefault().createServerSocket(server.port);
 
         ExecutorService eService =
-                Executors.newFixedThreadPool(maxConnections);
+                Executors.newFixedThreadPool(server.maxConnections);
 
         System.out.println("Now waiting for connection from client...");
 
         new Thread(() -> {
             try {
-                while (true) {
+                while (Server.status == ServerUtils.Status.START) {
                     Socket socket = serverSocket.accept();
                     logger.info("[INFO] - new connection from " + socket.getInetAddress() + ":" + socket.getPort());
                     eService.execute(new RequestHandler(socket));
@@ -55,12 +58,13 @@ public class WorkerService {
         }).start();
     }
 
+
     class RequestHandler implements Runnable {
         private JSONObject request;
         LinkedList<JSONObject> response;
         private Socket socket;
 
-        public RequestHandler(Socket socket) throws IOException {
+        public RequestHandler(Socket socket) {
             // TODO Auto-generated constructor stub
             this.socket = socket;
         }

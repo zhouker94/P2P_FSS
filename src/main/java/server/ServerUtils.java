@@ -14,6 +14,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import org.json.simple.parser.ParseException;
 import server.command.AbstractCommand;
 import server.command.PublishCommand;
 
@@ -137,5 +138,13 @@ public class ServerUtils {
 			}
 		*/
         return results;
+    }
+
+    public static JSONObject stringToJSON(String msg) throws ParseException {
+        JSONParser jsonParser = new JSONParser();
+        JSONObject jsonObject;
+
+        jsonObject = (JSONObject) jsonParser.parse(msg);
+        return jsonObject;
     }
 }

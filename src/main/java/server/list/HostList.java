@@ -1,16 +1,17 @@
-package server.hostlist;
+package server.list;
 
 import org.json.simple.JSONArray;
+import server.HostInfo;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class HostList {
+public class HostList extends BaseList<HostInfo> {
     private List<HostInfo> hostList;
 
-    public HostList(){
+    public HostList() {
         this.hostList = Collections.synchronizedList(new ArrayList<>());
     }
 
@@ -26,20 +27,12 @@ public class HostList {
         return host;
     }
 
-    public void remove(HostInfo selectedHost) {
-        hostList.remove(selectedHost);
-    }
-
-    public JSONArray getAll(){
+    public JSONArray getAll() {
         JSONArray res = new JSONArray();
         for (HostInfo ht : this.hostList) {
             res.add(ht.toJson());
         }
         return res;
-    }
-
-    public boolean isEmpty(){
-        return hostList.isEmpty();
     }
 
     public void printOut() {
