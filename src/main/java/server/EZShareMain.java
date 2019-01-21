@@ -3,6 +3,7 @@ package server;
 import java.net.UnknownHostException;
 
 import org.apache.commons.cli.ParseException;
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
 
@@ -12,7 +13,7 @@ public class EZShareMain {
     private static final Logger LOG = Logger.getLogger(Server.class);
 
     public static void main(String[] args) {
-
+        BasicConfigurator.configure();
         EZShareMain main = new EZShareMain();
 
         try {

@@ -1,22 +1,15 @@
 package server.list;
 
-import org.json.simple.JSONArray;
 import server.ClientInfo;
+import server.HostInfo;
+
+import java.util.List;
 
 public class ClientList extends BaseList <ClientInfo> {
+    private List<ClientInfo> clientList;
 
     @Override
     public boolean isEmpty() {
         return false;
-    }
-
-    @Override
-    public JSONArray getAll() {
-        return null;
-    }
-
-    @Override
-    public void printOut() {
-
     }
 }

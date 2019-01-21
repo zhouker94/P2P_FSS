@@ -2,9 +2,6 @@ package server;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
@@ -16,21 +13,19 @@ public class ServerConfig {
 	// Server's configuration parameters
 
 	// defaults to 33254 if not set explicitly
-	protected int port = 33254;
-	protected int maxConnections = 100;
+	int port = 33254;
+	int maxConnections = 100;
 
 	// Server's secret
-	protected String secret = "";
+	String secret = "";
 	// advertised host name
-	protected String advertisedHostName = "";
+	String advertisedHostName = "";
 	// connection interval limit
-	protected long connectionIntervalLimit = 1;
+	long connectionIntervalLimit = 1;
 	// exchange interval
-	protected long exchangeInterval = 10 * 60;
+	long exchangeInterval = 10 * 60;
 
-	protected HostInfo local_host;
-	// store those clients' addresses who just used the server
-	protected List<InetAddress> client_list;
+	HostInfo local_host;
 
 	/**
 	 * @param args
@@ -52,7 +47,7 @@ public class ServerConfig {
 		CommandLine cmd = new DefaultParser().parse(opt, args);
 
 		if (cmd.hasOption("help")) {
-			ServerUtils.printHelpInfo();
+			Utils.printHelpInfo();
 			System.exit(0);
 		}
 
@@ -77,11 +72,10 @@ public class ServerConfig {
 		if (cmd.hasOption("secret")) {
 			this.secret = cmd.getOptionValue("secret");
 		} else {
-			this.secret = ServerUtils.generateSecret();
+			this.secret = Utils.generateSecret();
 		}
 
 		this.local_host = new HostInfo(InetAddress.getLocalHost().getHostAddress(), this.port);
-		this.client_list = Collections.synchronizedList(new ArrayList<InetAddress>());
 
 	}
 }

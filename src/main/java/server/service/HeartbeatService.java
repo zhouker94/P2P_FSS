@@ -3,10 +3,10 @@ package server.service;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
-import server.ServerUtils;
+import server.Utils;
 import server.HostInfo;
 import server.Server;
-import server.ServerUtils.*;
+import server.Utils.*;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -29,15 +29,14 @@ public class HeartbeatService implements Runnable {
 
     public void start(Server server) {
         this.server = server;
-
-        // Start a new thread to send heartbeat
+        LOG.info("Start exchanging massage");
         new Thread(heartbeatService).start();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void run() {
         while (Server.status == Status.START) {
-
             try {
                 Thread.sleep(server.exchangeInterval);
             } catch (InterruptedException e) {
@@ -86,7 +85,7 @@ public class HeartbeatService implements Runnable {
         String responseStr = inputStream.readUTF();
 
         /* receive JSONObject */
-        response = ServerUtils.stringToJSON(responseStr);
+        response = Utils.stringToJSON(responseStr);
 
         return response;
     }

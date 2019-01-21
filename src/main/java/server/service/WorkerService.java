@@ -3,7 +3,6 @@ package server.service;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedList;
@@ -17,15 +16,15 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import server.ClientInfo;
 import server.Server;
-import server.ServerConfig;
-import server.ServerUtils;
+import server.Utils;
 
 public class WorkerService {
 
     private static WorkerService workerService;
     private ServerSocket serverSocket;
-    private Logger logger = Logger.getLogger(WorkerService.class);
+    private Logger LOG = Logger.getLogger(WorkerService.class);
     private Server server;
 
     public static WorkerService getInstance() {
@@ -43,13 +42,13 @@ public class WorkerService {
         ExecutorService eService =
                 Executors.newFixedThreadPool(server.maxConnections);
 
-        System.out.println("Now waiting for connection from client...");
+        LOG.info("Now waiting for connection from client...");
 
         new Thread(() -> {
             try {
-                while (Server.status == ServerUtils.Status.START) {
+                while (Server.status == Utils.Status.START) {
                     Socket socket = serverSocket.accept();
-                    logger.info("[INFO] - new connection from " + socket.getInetAddress() + ":" + socket.getPort());
+                    LOG.info("[INFO] - new connection from " + socket.getInetAddress() + ":" + socket.getPort());
                     eService.execute(new RequestHandler(socket));
                 }
             } catch (Exception e) {
@@ -64,50 +63,56 @@ public class WorkerService {
         LinkedList<JSONObject> response;
         private Socket socket;
 
-        public RequestHandler(Socket socket) {
+        RequestHandler(Socket socket) {
             // TODO Auto-generated constructor stub
             this.socket = socket;
         }
 
         @Override
         public void run() {
-            InetAddress clientIpAddress = socket.getInetAddress();
+            ClientInfo clientInfo = new ClientInfo(socket.getInetAddress());
+            DataInputStream dataInputStream;
+            DataOutputStream dataOutputStream;
             try {
-                // if the client just have connected server, close it
-                if (ServerConfig.client_list.contains(clientIpAddress)) {
-                    // close the socket
+                // If the client just have connected server, close it
+                if (server.clientList.contains(clientInfo)) {
                     socket.close();
+                    return;
                 }
-                logger.info("[INFO] - new connection from " + socket.getInetAddress() + ":" + socket.getPort());
-                ServerUtils.addClientAddress(socket, ServerConfig.client_list);
+                LOG.info("[INFO] - new connection from " +
+                        socket.getInetAddress() + ":" + socket.getPort());
 
-                // Input stream
-                DataInputStream input = new DataInputStream(socket.getInputStream());
-                // Output Stream
-                DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+                server.clientList.add(clientInfo);
 
-                /** get client's command */
+                dataInputStream = new DataInputStream(socket.getInputStream());
+                dataOutputStream = new DataOutputStream(socket.getOutputStream());
+
+                /* get client's command */
                 JSONParser parser = new JSONParser();
-                request = (JSONObject) parser.parse(input.readUTF());
-                logger.info("[INFO] - RECEIVED: " + request.toJSONString());
+                request = (JSONObject) parser.parse(dataInputStream.readUTF());
+                LOG.info("[INFO] - RECEIVED: " + request.toJSONString());
 
-                LinkedList<JSONObject> response = ServerUtils.parseCommand(request, output, input);
+                LinkedList<JSONObject> response =
+                        Utils.parseCommand(
+                                request,
+                                dataOutputStream,
+                                dataInputStream);
 
                 for (JSONObject result : response) {
-                    output.writeUTF(result.toJSONString());
-                    output.flush();
-                    logger.info("[FINE] - SEND: " + result.toJSONString());
+                    dataOutputStream.writeUTF(result.toJSONString());
+                    dataOutputStream.flush();
+                    LOG.info("[FINE] - SEND: " + result.toJSONString());
                 }
 
             } catch (IOException | ParseException e) {
                 e.printStackTrace();
             } finally {
                 try {
-                    Thread.sleep(ServerConfig.connectionIntervalLimit * 1000);
+                    Thread.sleep(server.connectionIntervalLimit * 1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                ServerUtils.removeClientAddress(socket, ServerConfig.client_list);
+                server.clientList.remove(clientInfo);
             }
         }
     }

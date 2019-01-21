@@ -18,7 +18,7 @@ import org.json.simple.parser.ParseException;
 import server.command.AbstractCommand;
 import server.command.PublishCommand;
 
-public class ServerUtils {
+public class Utils {
 
     public enum Status {
         START, STOP, JOIN
@@ -38,49 +38,19 @@ public class ServerUtils {
         System.out.println("-sport <arg> secure port number");
     }
 
-    /**
-     * generateSecret
-     *
-     * @return secret string
-     */
     public static String generateSecret() {
-        String secret = "";
+        StringBuilder secret = new StringBuilder();
         Random random = new Random();
         for (int i = 0; i < 26; i++) {
             String charOrNum = random.nextInt(2) % 2 == 0 ? "char" : "num";
             if ("char".equalsIgnoreCase(charOrNum)) {
                 int temp = random.nextInt(2) % 2 == 0 ? 65 : 97;
-                secret += (char) (random.nextInt(26) + temp);
-            } else if ("num".equalsIgnoreCase(charOrNum)) {
-                secret += String.valueOf(random.nextInt(10));
+                secret.append((char) (random.nextInt(26) + temp));
+            } else {
+                secret.append(String.valueOf(random.nextInt(10)));
             }
         }
-        return secret;
-    }
-
-    /**
-     * @param socket
-     * @param
-     * @return
-     */
-    public static void addClientAddress(Socket socket,
-                                        ArrayList<InetAddress> client_list) {
-
-        client_list.add(socket.getInetAddress());
-    }
-
-    /**
-     * @param socket
-     * @param client_list
-     * @return
-     */
-    public static void removeClientAddress(Socket socket,
-                                           ArrayList<InetAddress> client_list) {
-
-        InetAddress c_address = socket.getInetAddress();
-        if (client_list.contains(c_address)) {
-            client_list.remove(c_address);
-        }
+        return secret.toString();
     }
 
     @SuppressWarnings("unchecked")

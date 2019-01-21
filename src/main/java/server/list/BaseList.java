@@ -6,7 +6,7 @@ import java.util.List;
 
 class BaseList<ItemType> {
 
-    private List<ItemType> list;
+    List<ItemType> list;
 
     BaseList() {
         this.list =
@@ -23,5 +23,9 @@ class BaseList<ItemType> {
 
     public boolean isEmpty() {
         return list.isEmpty();
+    }
+
+    public boolean contains(ItemType item) {
+        return list.contains(item);
     }
 }

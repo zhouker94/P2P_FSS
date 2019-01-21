@@ -13,5 +13,4 @@ public interface RequestProcessor {
 
     void processRequest(JSONObject request) throws RequestProcessorException;
 
-    void shutdown();
 }

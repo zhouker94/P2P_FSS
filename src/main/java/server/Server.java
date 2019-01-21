@@ -5,11 +5,12 @@ import java.util.Date;
 
 import org.apache.log4j.Logger;
 
+import server.list.ClientList;
 import server.list.HostList;
 import server.service.HeartbeatService;
 import server.service.WorkerService;
 
-import server.ServerUtils.Status;
+import server.Utils.Status;
 
 public class Server {
 
@@ -21,9 +22,12 @@ public class Server {
 	public final long exchangeInterval;
 	public final int maxConnections;
 	public final int port;
+	public final long connectionIntervalLimit;
 
 	public HostList hostList;
+	public ClientList clientList;
 	public HostInfo localHost;
+	public String secret;
 
 	private static final Logger LOG = Logger.getLogger(Server.class);
 
@@ -36,6 +40,8 @@ public class Server {
 		this.name = "StandaloneServer_port_" + this.port;
 		this.exchangeInterval = config.exchangeInterval;
 		this.maxConnections = config.maxConnections;
+		this.connectionIntervalLimit = config.connectionIntervalLimit;
+		this.secret = config.secret;
 
 		this.hostList = new HostList();
 		Server.status = Status.START;
@@ -57,12 +63,10 @@ public class Server {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		// Start sending heartbeat
 		HeartbeatService heartBeatService =
 				HeartbeatService.getInstance();
 		heartBeatService.start(this);
-
 		Server.status = Status.JOIN;
 	}
 

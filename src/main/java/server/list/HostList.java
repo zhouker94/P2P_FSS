@@ -3,33 +3,25 @@ package server.list;
 import org.json.simple.JSONArray;
 import server.HostInfo;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 public class HostList extends BaseList<HostInfo> {
-    private List<HostInfo> hostList;
-
-    public HostList() {
-        this.hostList = Collections.synchronizedList(new ArrayList<>());
-    }
 
     public HostInfo getRandom() {
 
-        int host_list_size = this.hostList.size();
+        int host_list_size = this.list.size();
         if (host_list_size <= 0) {
             return null;
         }
 
         HostInfo host;
-        host = this.hostList.get(new Random().nextInt(host_list_size));
+        host = this.list.get(new Random().nextInt(host_list_size));
         return host;
     }
 
     public JSONArray getAll() {
         JSONArray res = new JSONArray();
-        for (HostInfo ht : this.hostList) {
+        for (HostInfo ht : this.list) {
             res.add(ht.toJson());
         }
         return res;
@@ -37,7 +29,7 @@ public class HostList extends BaseList<HostInfo> {
 
     public void printOut() {
         System.out.println("---------------host---------------");
-        for (HostInfo h : hostList) {
+        for (HostInfo h : list) {
             System.out.println(h.toString());
         }
         System.out.println("----------------------------------");
