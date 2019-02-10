@@ -6,11 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="P2P_file-sharing_System" />
+        <module name="ezshare" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="P2P_file-sharing_System" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>
