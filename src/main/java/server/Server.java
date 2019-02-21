@@ -24,7 +24,7 @@ public class Server {
 
 	public HostList hostList;
 	public ClientList clientList;
-	private HostInfo localHost;
+	public HostInfo localHost;
 
 	private static final Logger LOG = Logger.getLogger(Server.class);
 
@@ -55,6 +55,7 @@ public class Server {
 	}
 
 	void start() throws ServerException{
+
 		// Start worker pool and wait for connection.
 		try {
 			WorkerService workerService = WorkerService.getInstance();
@@ -62,13 +63,13 @@ public class Server {
 		} catch (IOException e) {
 			throw new ServerException(e.toString(), e);
 		}
+
 		// Start sending heartbeat
 		HeartbeatService heartBeatService =
 				HeartbeatService.getInstance();
 		heartBeatService.start(this);
 		Server.status = Status.JOIN;
 	}
-
 
 	class ServerException extends Exception{
 		ServerException(String msg, Throwable t) {

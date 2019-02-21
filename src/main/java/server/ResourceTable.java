@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import server.resource.Resource;
-import server.resource.ResourceKey;
 
 public class ResourceTable {
 	

@@ -1,22 +1,12 @@
 package server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import org.json.simple.parser.ParseException;
-import server.command.AbstractCommand;
-import server.command.PublishCommand;
+
 
 public class Utils {
 
@@ -51,63 +41,6 @@ public class Utils {
             }
         }
         return secret.toString();
-    }
-
-    @SuppressWarnings("unchecked")
-    public static LinkedList<JSONObject> parseCommand(JSONObject clientCommand, DataOutputStream output,
-                                                      DataInputStream input) {
-        LinkedList<JSONObject> results = new LinkedList<JSONObject>();
-        JSONObject result = new JSONObject();
-
-        if (clientCommand.containsKey("command")) {
-            AbstractCommand command;
-            switch (clientCommand.get("command").toString()) {
-                case "PUBLISH":
-                    command = new PublishCommand();
-                    result = command.commandRun(clientCommand);
-                    results.add(result);
-                    break;
-                case "REMOVE":
-                    /*
-                    result = remove(clientCommand);
-                    results.add(result);
-                    */
-                    break;
-                default:
-                    result.put("response", "error");
-                    results.add(result);
-                    break;
-            }
-        } else {
-            result.put("response", "error");
-            results.add(result);
-        }
-		/*
-			case "REMOVE":
-				result = remove(clientCommand);
-				results.add(result);
-				break;
-			case "QUERY":
-				results = query(clientCommand);
-				break;
-			case "FETCH":
-				fetch(clientCommand, output);
-				break;
-			case "SHARE":
-				result = share(clientCommand);
-				results.add(result);
-				break;
-			case "EXCHANGE":
-				result = exchange(clientCommand);
-				results.add(result);
-				break;
-			case "SUBSCRIBE":
-				result = subscribe(clientCommand, output, input);
-				results.add(result);
-				break;
-			}
-		*/
-        return results;
     }
 
     public static JSONObject stringToJSON(String msg) throws ParseException {

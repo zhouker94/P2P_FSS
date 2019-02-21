@@ -19,6 +19,7 @@ import org.json.simple.parser.ParseException;
 import server.ClientInfo;
 import server.Server;
 import server.Utils;
+import server.RequestProcessor;
 
 public class WorkerService {
 
@@ -37,7 +38,7 @@ public class WorkerService {
     public void start(Server server) throws IOException {
         this.server = server;
         this.serverSocket =
-                ServerSocketFactory.getDefault().createServerSocket(server.port);
+                ServerSocketFactory.getDefault().createServerSocket(server.localHost.getPort());
 
         ExecutorService eService =
                 Executors.newFixedThreadPool(server.maxConnections);
@@ -59,13 +60,18 @@ public class WorkerService {
 
 
     class RequestHandler implements Runnable {
+
+        private RequestProcessor processor;
+
         private JSONObject request;
         LinkedList<JSONObject> response;
+
         private Socket socket;
 
         RequestHandler(Socket socket) {
             // TODO Auto-generated constructor stub
             this.socket = socket;
+            this.processor = new RequestProcessor();
         }
 
         @Override
@@ -92,11 +98,10 @@ public class WorkerService {
                 request = (JSONObject) parser.parse(dataInputStream.readUTF());
                 LOG.info("[INFO] - RECEIVED: " + request.toJSONString());
 
-                LinkedList<JSONObject> response =
-                        Utils.parseCommand(
-                                request,
-                                dataOutputStream,
-                                dataInputStream);
+                response = processor.processRequest(
+                        request,
+                        dataOutputStream,
+                        dataInputStream);
 
                 for (JSONObject result : response) {
                     dataOutputStream.writeUTF(result.toJSONString());
