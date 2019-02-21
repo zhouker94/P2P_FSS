@@ -1,1 +1,1 @@
-# P2P_FSS (P2P file sharing distributed system)
+# P2P File Sharing Distributed System (P2P_FSS)
