@@ -9,11 +9,11 @@ import java.io.DataOutputStream;
 import java.util.LinkedList;
 
 public class RequestProcessor {
-	
-    class RequestProcessorException extends Exception {
-        public RequestProcessorException(String msg, Throwable t) {
-            super(msg, t);
-        }
+
+    private AbstractCommand command;
+
+    public RequestProcessor(AbstractCommand command){
+        this.command = command;
     }
 
     public LinkedList<JSONObject> processRequest(JSONObject clientCommand,
@@ -24,13 +24,17 @@ public class RequestProcessor {
         JSONObject result = new JSONObject();
 
         if (clientCommand.containsKey("command")) {
-            AbstractCommand command;
+
             switch (clientCommand.get("command").toString()) {
                 case "PUBLISH":
                     command = new PublishCommand();
                     result = command.commandRun(clientCommand);
-                    response.add(result);
-                    break;
+                    if(response.add(result)){
+                        break;
+                    }
+                    else{
+                        throw RequestProcessorException();
+                    }
                 case "REMOVE":
                     /*
                     result = remove(clientCommand);
@@ -72,6 +76,12 @@ public class RequestProcessor {
 			}
 		*/
         return response;
+    }
+
+    class RequestProcessorException extends Exception {
+        public RequestProcessorException(String msg, Throwable t) {
+            super(msg, t);
+        }
     }
 
 }
