@@ -8,8 +8,7 @@ public abstract class AbstractCommand {
 
 	protected Server server;
 
-	AbstractCommand() {
-	}
+	AbstractCommand() {}
 
 	public abstract JSONObject commandRun(JSONObject clientCommand);
 }
