@@ -30,19 +30,21 @@ public class EZShareMain {
             System.err.println("Unable to get local ip address, exiting abnormally");
 
             System.exit(2);
+        } catch (Server.ServerException e){
+            LOG.error("Server Error", e);
         }
     }
 
     private void initializeAndRun(String[] args)
-            throws ParseException, UnknownHostException {
+            throws ParseException, UnknownHostException, Server.ServerException {
 
         LOG.info("[INFO] - Initializing EZShare Server");
 
-        ServerConfig config = new ServerConfig();
-        config.parse(args);
+        ServerConfig conf = new ServerConfig();
+        conf.parse(args);
 
-        LOG.info("Starting server");
-        final Server ezServer = new Server(config);
+        LOG.info("-------Starting server-------");
+        final Server ezServer = new Server(conf);
         ezServer.start();
     }
 

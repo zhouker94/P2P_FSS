@@ -17,17 +17,14 @@ public class Server {
 	public static volatile Status status;
 
 	protected final Date startTime;
-	protected final String name;
 
 	public final long exchangeInterval;
 	public final int maxConnections;
-	public final int port;
 	public final long connectionIntervalLimit;
 
 	public HostList hostList;
 	public ClientList clientList;
 	public HostInfo localHost;
-	public String secret;
 
 	private static final Logger LOG = Logger.getLogger(Server.class);
 
@@ -36,14 +33,16 @@ public class Server {
 	Server(ServerConfig config) {
 		LOG.info("[INFO] - started");
 		this.startTime = new Date();
-		this.port = config.port;
-		this.name = "StandaloneServer_port_" + this.port;
+
 		this.exchangeInterval = config.exchangeInterval;
 		this.maxConnections = config.maxConnections;
 		this.connectionIntervalLimit = config.connectionIntervalLimit;
-		this.secret = config.secret;
 
 		this.hostList = new HostList();
+
+		String server_name = "StandaloneServer_port_" + config.port;
+		this.localHost = new HostInfo(
+		        server_name, config.port, config.secret);
 		Server.status = Status.START;
 	}
 
@@ -52,17 +51,19 @@ public class Server {
 	}
 
 	public String getName() {
-		return name;
+		return this.localHost.getHostname();
 	}
 
-	void start() {
+	void start() throws ServerException{
+
 		// Start worker pool and wait for connection.
 		try {
 			WorkerService workerService = WorkerService.getInstance();
 			workerService.start(this);
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new ServerException(e.toString(), e);
 		}
+
 		// Start sending heartbeat
 		HeartbeatService heartBeatService =
 				HeartbeatService.getInstance();
@@ -70,4 +71,9 @@ public class Server {
 		Server.status = Status.JOIN;
 	}
 
+	class ServerException extends Exception{
+		ServerException(String msg, Throwable t) {
+			super(msg, t);
+		}
+	}
 }

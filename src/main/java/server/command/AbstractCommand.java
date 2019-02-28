@@ -10,5 +10,7 @@ public abstract class AbstractCommand {
 
 	AbstractCommand() {}
 
+	abstract JSONObject parse(JSONObject clientCommand);
+
 	public abstract JSONObject commandRun(JSONObject clientCommand);
 }

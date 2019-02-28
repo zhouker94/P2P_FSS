@@ -6,31 +6,25 @@ public class HostInfo {
 
     private String hostname;
     private int port;
+    private String secret;
 
     /**
      * @param hostname
      * @param port
      * @param secret
      */
-    HostInfo(String hostname, int port) {
-        setPort(port);
-        setHostname(hostname);
+    HostInfo(String hostname, int port, String secret) {
+        this.port = port;
+        this.hostname = hostname;
+        this.secret = secret;
     }
 
     public int getPort() {
         return port;
     }
 
-    public void setPort(int port) {
-        this.port = port;
-    }
-
     public String getHostname() {
         return hostname;
-    }
-
-    public void setHostname(String hostname) {
-        this.hostname = hostname;
     }
 
     /**
@@ -40,7 +34,7 @@ public class HostInfo {
     public JSONObject toJson() {
         JSONObject host_json = new JSONObject();
         host_json.put("hostname", getHostname());
-        host_json.put("port", getPort() + "");
+        host_json.put("port", String.valueOf(getPort()));
         return host_json;
     }
 
@@ -49,12 +43,7 @@ public class HostInfo {
      * @return
      */
     public boolean equals(HostInfo host) {
-        if (this.hostname.equals(host.getHostname()) && (this.getPort() == host.getPort())) {
-            return true;
-        } else {
-            return false;
-        }
-
+        return this.hostname.equals(host.getHostname()) && (this.getPort() == host.getPort());
     }
 
     /*
@@ -64,6 +53,6 @@ public class HostInfo {
      */
     @Override
     public String toString() {
-        return hostname + ":" + port;
+        return hostname + ": " + port;
     }
 }

@@ -25,8 +25,6 @@ public class ServerConfig {
 	// exchange interval
 	long exchangeInterval = 10 * 60;
 
-	HostInfo local_host;
-
 	/**
 	 * @param args
 	 * @throws UnknownHostException
@@ -74,8 +72,6 @@ public class ServerConfig {
 		} else {
 			this.secret = Utils.generateSecret();
 		}
-
-		this.local_host = new HostInfo(InetAddress.getLocalHost().getHostAddress(), this.port);
 
 	}
 }
